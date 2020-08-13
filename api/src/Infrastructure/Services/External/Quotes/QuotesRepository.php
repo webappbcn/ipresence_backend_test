@@ -1,10 +1,14 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Infrastructure\Services\External\Quotes;
 
 /**
  * Class QuotesClientManager
- * @package App\Infrastructure\Services\External
  */
 class QuotesRepository
 {
@@ -13,14 +17,17 @@ class QuotesRepository
      */
     private $connector;
 
+    /**
+     * QuotesRepository constructor.
+     */
     public function __construct()
     {
         $this->connector = new QuotesConnector();
     }
 
     /**
-     * @param string $name
-     * @param int    $limit
+     * @param string   $author
+     * @param int|null $limit
      *
      * @return array
      */

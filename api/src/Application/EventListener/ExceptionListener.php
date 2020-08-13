@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Application\EventListener;
 
@@ -20,7 +25,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 class ExceptionListener
 {
     /**
-     * onKernelException.
+     * @param ExceptionEvent $event
      */
     public function onKernelException(ExceptionEvent $event)
     {

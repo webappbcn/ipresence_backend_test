@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Tests\Infrastructure\Services\External\Quotes;
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Application\Response;
 
@@ -11,8 +16,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class JsonMessage
 {
     /**
-     * @param null $responseBody
-     * @param null $responseHeaders
+     * @param int|null $code
+     * @param array    $data
+     * @param null     $responseBody
+     * @param null     $responseHeaders
      *
      * @return JsonResponse
      */

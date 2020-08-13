@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Infrastructure\Services\External\Quotes;
 
@@ -6,7 +11,6 @@ use App\Application\Exception\InvalidAPIResponseException;
 
 /**
  * Class QuotesClientManager
- * @package App\Infrastructure\Services\External
  */
 class QuotesConnector
 {
@@ -16,32 +20,6 @@ class QuotesConnector
      * @var array
      */
     private $rawData;
-
-    /**
-     * connect
-     */
-    private function getRawData(): array
-    {
-        try {
-            $data = file_get_contents(QuotesConnector::URL_SERVICE);
-        } catch (\Exception $e) {
-            throw new InvalidAPIResponseException();
-        }
-
-        return json_decode($data, true);
-    }
-
-    /**
-     * @param array|null $data
-     */
-    private function setRawData(?array $data): void
-    {
-        if ($data && isset($data['quotes']) && is_array($data['quotes'])) {
-            $this->rawData = $data['quotes'];
-        } else {
-            throw new InvalidAPIResponseException();
-        }
-    }
 
     /**
      * @param string   $author
@@ -57,10 +35,36 @@ class QuotesConnector
     }
 
     /**
-     * @param string $authorSearch
-     * @param string $author
+     * @param array|null $data
+     */
+    private function setRawData(?array $data): void
+    {
+        if ($data && isset($data['quotes']) && is_array($data['quotes'])) {
+            $this->rawData = $data['quotes'];
+        } else {
+            throw new InvalidAPIResponseException();
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function getRawData(): array
+    {
+        try {
+            $data = file_get_contents(QuotesConnector::URL_SERVICE);
+        } catch (\Exception $e) {
+            throw new InvalidAPIResponseException();
+        }
+
+        return json_decode($data, true);
+    }
+
+    /**
+     * @param string   $authorSearch
+     * @param int|null $limit
      *
-     * @return bool
+     * @return array
      */
     private function filterAuthor(string $authorSearch, ?int $limit = null): array
     {
@@ -73,7 +77,7 @@ class QuotesConnector
             $authorItem = isset($item['author']) ? $item['author'] : null;
 
             if (preg_match('/'.preg_quote($authorSearch).'/i', $authorItem)) {
-                if (($limit !== null && $countLimit < $limit) || $limit === null) {
+                if ((null !== $limit && $countLimit < $limit) || null === $limit) {
                     $countLimit++;
                     $filtered[] = $quoteAssembler->writeDTO($quoteItem, $authorItem);
                 }

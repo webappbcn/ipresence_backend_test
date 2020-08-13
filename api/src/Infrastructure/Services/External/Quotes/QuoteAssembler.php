@@ -1,11 +1,14 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Infrastructure\Services\External\Quotes;
 
-
 /**
  * Class QuoteAssembler
- * @package App\Infrastructure\Services\External\Quotes
  */
 class QuoteAssembler
 {

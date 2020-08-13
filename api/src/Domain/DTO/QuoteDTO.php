@@ -1,7 +1,15 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Domain\DTO;
 
+/**
+ * Class QuoteDTO
+ */
 class QuoteDTO implements DTOInterface
 {
     /**
@@ -22,7 +30,7 @@ class QuoteDTO implements DTOInterface
     public function __construct(?string $quote = null, ?string $author = null)
     {
         $this->quote = $quote !== null ? $this->convertShout($quote) : null;
-        $this->author = $author != null ? $this->convertShout($author) : null;
+        $this->author = $author !== null ? $this->convertShout($author) : null;
     }
 
     /**
@@ -48,6 +56,6 @@ class QuoteDTO implements DTOInterface
      */
     private function convertShout(string $text): string
     {
-        return strtoupper(rtrim($text, '.')) . '!';
+        return strtoupper(rtrim($text, '.')).'!';
     }
 }

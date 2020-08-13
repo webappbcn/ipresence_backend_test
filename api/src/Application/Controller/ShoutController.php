@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Application\Controller;
 
@@ -13,7 +18,6 @@ use Symfony\Component\Routing\Annotation\Route as Route;
 
 /**
  * Class SiteConfigController
- * @package App\Application\Controller
  */
 final class ShoutController extends AbstractController
 {
@@ -25,12 +29,16 @@ final class ShoutController extends AbstractController
      * @var QuoteAssembler
      */
     private $quoteAssembler;
-
     /**
      * @var CacheService
      */
     private $cacheService;
 
+    /**
+     * ShoutController constructor.
+     *
+     * @param CacheService $cacheService
+     */
     public function __construct(CacheService $cacheService)
     {
         $this->qrepo =  new QuotesRepository();

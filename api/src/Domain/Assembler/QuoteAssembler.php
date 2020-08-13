@@ -1,9 +1,17 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Domain\Assembler;
 
 use App\Domain\DTO\QuoteDTO;
 
+/**
+ * Class QuoteAssembler
+ */
 class QuoteAssembler
 {
     /**

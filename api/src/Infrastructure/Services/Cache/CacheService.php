@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Felipe <felipe@amsterdapp.nl>
+ *
+ * @version 1.0.0
+ */
 
 namespace App\Infrastructure\Services\Cache;
 
@@ -17,6 +22,8 @@ class CacheService
 
     /**
      * CacheService constructor.
+     *
+     * @param AdapterInterface $cache
      */
     public function __construct(AdapterInterface $cache)
     {
@@ -24,12 +31,13 @@ class CacheService
     }
 
     /**
-     * @param        $value
-     * @param string $ttl
+     * @param string      $key
+     * @param             $value
+     * @param string|null $ttl
      *
      * @return bool
      *
-     * @throws \Psr\Cache\InvalidArgumentException
+     * @throws \Exception
      */
     public function set(string $key, $value, string $ttl = null): bool
     {
@@ -46,9 +54,9 @@ class CacheService
     }
 
     /**
-     * @return array|null
+     * @param string $key
      *
-     * @throws InvalidArgumentException
+     * @return array|null
      */
     public function get(string $key): ?array
     {
@@ -63,9 +71,9 @@ class CacheService
     }
 
     /**
-     * @return bool
+     * @param string $key
      *
-     * @throws InvalidArgumentException
+     * @return bool
      */
     public function del(string $key): bool
     {
@@ -73,6 +81,8 @@ class CacheService
     }
 
     /**
+     * @param array $response
+     *
      * @return bool
      */
     public function isExpired(array $response): bool
