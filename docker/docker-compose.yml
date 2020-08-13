@@ -1,0 +1,51 @@
+version: '3.2'
+
+services:
+  phpsrv:
+    image: phpsrv
+    build: ./config/php
+    container_name: phpsrv
+    working_dir: /srv/www/vhosts/
+    volumes:
+      - ../api:/srv/www/vhosts/apirest
+      - /srv/www/vhosts/apirest/vendor
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php/resolv.conf:/etc/resolv.conf
+      - ./config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    extra_hosts:
+      - "api.ipresence.docker:192.168.13.35"
+    tty: true
+    environment:
+      PHP_IDE_CONFIG: "serverName=local"
+    networks:
+      ipresencenet:
+        ipv4_address: 192.168.13.36
+
+  apache:
+    build: ./config/apache
+    container_name: apachesrv
+    working_dir: /srv/www/vhosts/
+    volumes:
+      - ./config/apache/vhosts:/etc/apache2/sites-enabled
+      - ../api:/srv/www/vhosts/apirest
+      - /srv/www/vhosts/apirest/vendor
+    ports:
+      - 8082:80
+    depends_on:
+      - phpsrv
+    tty: true
+    environment:
+      PHP_IDE_CONFIG: "serverName=local"
+    extra_hosts:
+      - "api.ipresence.docker:192.168.13.35"
+    networks:
+      ipresencenet:
+        ipv4_address: 192.168.13.35
+
+
+networks:
+  ipresencenet:
+    attachable: true
+    ipam:
+      config:
+        - subnet: 192.168.13.0/24
